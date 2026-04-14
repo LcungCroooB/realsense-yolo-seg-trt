@@ -1,0 +1,17 @@
+# SEG dynamic-batch benchmark configuration
+# Usage: ./build/bin/yolo_compile_app bench seg configs/bench_v11s_seg_dynamic.yaml
+
+engine_file: models/yolo11s-seg-dynamic_fp16.engine
+yolo_type:   v11
+task_type:   seg
+image_dir:   datas/val2017
+result_dir:  test/bench_yolo11s_seg_dynamic
+save_image_count: 20
+
+# Each benchmark iteration runs one full batch.
+# batch_sizes: 16
+batch_size: 1/2/4/8/16
+warmup:     50
+iterations: 500
+memory_sample_step: 10
+gpu_id:     0

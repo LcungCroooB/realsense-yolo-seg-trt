@@ -1,0 +1,73 @@
+%YAML:1.0
+---
+global:
+  max_batch_size: 1
+  workspace_mb: 1024
+  skip_existing_engine: 1
+
+# Optional global int8 settings. Model-level int8 fields will override these.
+int8:
+  image_directory: inference
+  entropy_calibrator_file: ""
+
+models:
+  - name: yolov5s
+    yolo_type: v5
+    onnx: models/yolov5s.onnx
+    precisions: [fp16, fp32]
+    max_batch_size: 1
+
+  - name: yolov8s
+    yolo_type: v8
+    onnx: models/yolov8s.onnx
+    precisions: [fp16]
+    max_batch_size: 1
+
+  - name: yolo11s
+    yolo_type: v11
+    onnx: models/yolo11s.onnx
+    precisions: [fp16]
+    max_batch_size: 1
+
+  - name: yolo26s
+    yolo_type: yolo26
+    onnx: models/yolo26s.onnx
+    precisions: [fp16]
+    max_batch_size: 1
+
+  - name: yolo11s-obb
+    task_type: obb
+    yolo_type: v11
+    onnx: models/yolo11s-obb.onnx
+    precisions: [fp16]
+    max_batch_size: 1
+
+  - name: yolo11s-seg
+    task_type: seg
+    yolo_type: v11
+    onnx: models/yolo11s-seg.onnx
+    precisions: [fp16]
+    max_batch_size: 1
+
+  - name: yolo11s-pose
+    task_type: pose
+    yolo_type: v11
+    onnx: models/yolo11s-pose.onnx
+    precisions: [fp16]
+    max_batch_size: 1
+  
+  - name: yolo11s-seg-dynamic
+    task_type: seg
+    yolo_type: v11
+    onnx: models/yolo11s-seg-dynamic.onnx
+    precisions: [fp16]
+    max_batch_size: 16
+
+# INT8 example:
+#  - name: yolov8s
+#    yolo_type: v8
+#    onnx: models/yolov8s.onnx
+#    precisions: [int8]
+#    int8:
+#      image_directory: inference
+#      entropy_calibrator_file: models/yolov8s_int8.cache

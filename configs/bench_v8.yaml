@@ -1,0 +1,14 @@
+# Single model benchmark configuration
+# Usage: ./build/bin/yolo_compile_app bench single_model configs/bench_v8.yaml
+
+engine_file: models/yolov8s_fp16.engine
+yolo_type:   v8
+image_dir:   datas/val2017
+result_dir:  test/bench_v8
+save_image_count: 20
+
+warmup:     50
+iterations: 500
+batch_size: 1
+memory_sample_step: 10
+gpu_id:     0

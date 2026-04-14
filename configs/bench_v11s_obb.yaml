@@ -1,0 +1,15 @@
+# OBB benchmark configuration
+# Usage: ./build/bin/yolo_compile_app bench obb configs/bench_yolo11s_obb.yaml
+
+engine_file: models/yolo11s-obb_fp16.engine
+yolo_type:   v11
+task_type:   obb
+image_dir:   datas/dota5
+result_dir:  test/bench_yolo11s_obb
+save_image_count: 20
+
+warmup:     50
+iterations: 500
+batch_size: 1
+memory_sample_step: 10
+gpu_id:     0

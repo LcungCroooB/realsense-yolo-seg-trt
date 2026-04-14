@@ -1,0 +1,6 @@
+.github/
+.vscode/
+models/
+tests/
+build/
+docs/

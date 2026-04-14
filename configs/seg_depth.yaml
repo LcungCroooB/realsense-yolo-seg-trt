@@ -1,0 +1,58 @@
+input:
+  source: camera      # camera or video file path
+
+# all cameras share the same settings below
+camera:
+  serial_number: ""
+
+  width: 640
+  height: 480
+  fps: 30
+  align_to_color: true
+  enable_global_time: false
+  auto_reconnect: true
+  max_consecutive_failures: 5
+  timestamp_source: global_device
+
+video:
+  loop: true
+
+# yolo11-seg model settings
+model:
+  enabled: true
+  engine_file: models/yolo11s-seg_fp16.engine
+  yolo_type: v11
+  gpu_id: 0
+  confidence_threshold: 0.25
+  nms_threshold: 0.45
+  topk: 10
+  class_filter:
+    enable: false
+    class_ids: [0]
+
+runtime:
+  warmup: 5
+  batch_size: 1  # not implemented yet, always 1
+  max_frames: -1
+  read_timeout_ms: 1000
+
+depth:
+  min_m: 0.10
+  max_m: 4.0
+
+  z_strategy: eroded_mask_median
+  xy_strategy: eroded_mask_centroid
+  xy_fallback_strategy: bbox_center
+
+  window_size: 5
+  erode_kernel: 5
+  min_valid_samples: 7
+  trim_ratio: 0.0
+  percentile: 0.30
+  
+show:
+  enable: true
+  window_name: seg_depth
+  show_camera_axes_info: false
+  wait_key_ms: 1
+  

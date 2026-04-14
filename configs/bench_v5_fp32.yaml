@@ -1,0 +1,14 @@
+# Single model benchmark configuration
+# Usage: ./build/bin/yolo_compile_app bench single_model configs/bench_v5_fp32.yaml
+
+engine_file: models/yolov5s_fp32.engine
+yolo_type:   v5
+image_dir:   datas/val2017
+result_dir:  test/bench_v5_fp32
+save_image_count: 20
+
+warmup:     50
+iterations: 500
+batch_size: 1
+memory_sample_step: 10
+gpu_id:     0

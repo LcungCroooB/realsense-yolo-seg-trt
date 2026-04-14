@@ -1,0 +1,15 @@
+# POSE benchmark configuration
+# Usage: ./build/bin/yolo_compile_app bench pose configs/bench_yolo11s_pose.yaml
+
+engine_file: models/yolo11s-pose_fp16.engine
+yolo_type:   v11
+task_type:   pose
+image_dir:   datas/val2017
+result_dir:  test/bench_yolo11s_pose
+save_image_count: 20
+
+warmup:     50
+iterations: 500
+batch_size: 1
+memory_sample_step: 10
+gpu_id:     0
