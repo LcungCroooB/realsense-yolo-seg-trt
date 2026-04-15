@@ -17,16 +17,16 @@ int main(int argc, char **argv)
     if (argc < 3)
     {
         std::cerr
-            << "usage: ./build/bin/yolo_seg_trt <option> <task> [args...]\n"
+            << "usage: ./build/bin/yolo_seg_trt_app <option> <task> [args...]\n"
             << "\napp tasks:\n"
-            << "  ./build/bin/yolo_seg_trt app compile\n"
-            << "  ./build/bin/yolo_seg_trt app d435_seg <config_yaml>\n"
+            << "  ./build/bin/yolo_seg_trt_app app compile\n"
+            << "  ./build/bin/yolo_seg_trt_app app d435_seg <config_yaml>\n"
             << "\nbench tasks:\n"
-            << "  ./build/bin/yolo_seg_trt bench platform_info\n"
-            << "  ./build/bin/yolo_seg_trt bench det    <config_yaml>\n"
-            << "  ./build/bin/yolo_seg_trt bench obb    <config_yaml>\n"
-            << "  ./build/bin/yolo_seg_trt bench seg    <config_yaml>\n"
-            << "  ./build/bin/yolo_seg_trt bench pose   <config_yaml>\n"
+            << "  ./build/bin/yolo_seg_trt_app bench platform_info\n"
+            << "  ./build/bin/yolo_seg_trt_app bench det    <config_yaml>\n"
+            << "  ./build/bin/yolo_seg_trt_app bench obb    <config_yaml>\n"
+            << "  ./build/bin/yolo_seg_trt_app bench seg    <config_yaml>\n"
+            << "  ./build/bin/yolo_seg_trt_app bench pose   <config_yaml>\n"
             << std::endl;
         return -1;
     }
@@ -44,8 +44,8 @@ int main(int argc, char **argv)
             if (argc < 4)
             {
                 std::cerr
-                    << "usage: ./build/bin/yolo_seg_trt app d435_seg <config_yaml>\n"
-                    << "example: ./build/bin/yolo_seg_trt app d435_seg configs/seg_depth.yaml"
+                    << "usage: ./build/bin/yolo_seg_trt_app app d435_seg <config_yaml>\n"
+                    << "example: ./build/bin/yolo_seg_trt_app app d435_seg configs/seg_depth.yaml"
                     << std::endl;
                 return -1;
             }
@@ -71,8 +71,8 @@ int main(int argc, char **argv)
             if (argc < 4)
             {
                 std::cerr
-                    << "usage: ./build/bin/yolo_seg_trt bench " << task << " <config_yaml>\n"
-                    << "example: ./build/bin/yolo_seg_trt bench " << task << " configs/bench_" << task << ".yaml"
+                    << "usage: ./build/bin/yolo_seg_trt_app bench " << task << " <config_yaml>\n"
+                    << "example: ./build/bin/yolo_seg_trt_app bench " << task << " configs/bench_" << task << ".yaml"
                     << std::endl;
                 return -1;
             }
