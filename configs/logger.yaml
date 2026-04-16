@@ -1,0 +1,25 @@
+logger:
+  global_level: info
+
+  time:
+    use_utc: false
+    time_zone_hours: 8
+    pattern: "<year>-<mon>-<day> <hour>:<min>:<sec>.<mili>"
+
+  console:
+    enable: true
+    to_stderr: false
+
+  file:
+    enable: false
+    log_dir: ./logs
+    base_filename: app
+    rotate_every_minutes: 60
+    flush_on_every_write: false
+    flush_on_error: true
+
+  async:
+    queue_capacity: 4096
+    batch_size: 128
+    overflow_policy: drop_oldest
+    sync_on_error: true

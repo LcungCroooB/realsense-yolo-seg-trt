@@ -2,7 +2,9 @@
 
 #include "async_backend.h"
 
+#include <atomic>
 #include <cstdarg>
+#include <memory>
 #include <string>
 
 namespace logging
@@ -10,10 +12,10 @@ namespace logging
     class Logger final
     {
     public: 
-        Logger(std::string category, AsyncBackend *backend);
+        Logger(std::string category, std::weak_ptr<AsyncBackend> backend);
 
-        void setLevel(LogLevel level) {level_ = level;}
-        LogLevel level() const {return level_;}
+        void setLevel(LogLevel level) {level_.store(level, std::memory_order_relaxed);}
+        LogLevel level() const {return level_.load(std::memory_order_relaxed);} 
         
         void setDefaultFields(std::string key, std::string value);
 
@@ -28,8 +30,8 @@ namespace logging
 
     private:
         std::string category_;
-        AsyncBackend *backend_{nullptr};
-        LogLevel level_{LogLevel::kInfo};
+        std::weak_ptr<AsyncBackend> backend_;
+        std::atomic<LogLevel> level_{LogLevel::kInfo};
         Fields default_;
     };
 }

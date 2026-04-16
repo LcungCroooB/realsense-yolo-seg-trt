@@ -1,5 +1,7 @@
 #include "logger_manager.h"
 
+#include <utility>
+
 namespace logging
 {
     LoggerManager &LoggerManager::instance()
@@ -41,25 +43,20 @@ namespace logging
         inited_ = false;
     }
 
-    Logger *LoggerManager::getLogger(const std::string &category)
+    std::shared_ptr<Logger> LoggerManager::getLogger(const std::string &category)
     {
-        std::unique_lock<std::mutex> lock(mutex_);
+        std::lock_guard<std::mutex> lock(mutex_);
         if (!inited_)
-        {
-            lock.unlock();
-            init(LogManagerConfig{}); // 使用默认配置初始化
-            lock.lock();
-        }
+            return {};
 
         auto it = loggers_.find(category);
         if (it != loggers_.end())
-            return it->second.get();
+            return it->second;
 
-        auto logger = std::make_unique<Logger>(category, backend_.get());
+        auto logger = std::make_shared<Logger>(category, backend_);
         logger->setLevel(cfg_.global_lv);
-        Logger *ptr = logger.get();
-        loggers_.emplace(category, std::move(logger));
-        return ptr;
+        loggers_.emplace(category, logger);
+        return logger;
     }
 
     void LoggerManager::setGlobalLevel(LogLevel level)

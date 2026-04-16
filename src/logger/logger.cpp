@@ -5,7 +5,7 @@
 
 namespace logging
 {
-    Logger::Logger(std::string category, AsyncBackend *backend)
+    Logger::Logger(std::string category, std::weak_ptr<AsyncBackend> backend)
         : category_(std::move(category)), backend_(backend) {}
 
     void Logger::setDefaultFields(std::string key, std::string value)
@@ -40,7 +40,7 @@ namespace logging
 
     void Logger::log(SourceLocation src, LogLevel lv, const char *fmt, ...)
     {
-        if ((int)lv > (int)level_)
+        if ((int)lv > (int)level())
             return;
 
         va_list args;
@@ -56,13 +56,14 @@ namespace logging
         e.src = src;
         e.message = std::move(message);
 
-        if(backend_)
-            backend_->submit(std::move(e));
+        std::shared_ptr<AsyncBackend> backend = backend_.lock();
+        if (backend)
+            backend->submit(std::move(e));
     }
 
     void Logger::logwithFields(SourceLocation src, LogLevel lv, Fields fields, const char *fmt, ...)
     {
-        if ((int)lv > (int)level_)
+        if ((int)lv > (int)level())
             return;
 
         va_list args;
@@ -86,7 +87,8 @@ namespace logging
         for(auto &kv : fields)
             e.fields[kv.first] = std::move(kv.second);
 
-        if(backend_)
-            backend_->submit(std::move(e));
+        std::shared_ptr<AsyncBackend> backend = backend_.lock();
+        if (backend)
+            backend->submit(std::move(e));
     }
 }

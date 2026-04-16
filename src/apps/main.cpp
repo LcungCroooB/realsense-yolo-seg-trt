@@ -6,6 +6,7 @@
 #include "benchmark.hpp"
 #include "bench_config.hpp"
 #include "d435_seg.hpp"
+#include "logger_config.hpp"
 
 int app_yolo_compile();
 
@@ -33,6 +34,8 @@ int main(int argc, char **argv)
 
     option = argv[1];
     task = argv[2];
+
+    app_logger::LoggerRuntimeGuard logger_guard;
 
     if (strcmp(option, "app") == 0)
     {

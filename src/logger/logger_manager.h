@@ -7,6 +7,7 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <cstdint>
 #include <unordered_map>
 
 namespace logging
@@ -30,7 +31,7 @@ namespace logging
         void init(LogManagerConfig config);
         void shutdown();
 
-        Logger *getLogger(const std::string &category);
+        std::shared_ptr<Logger> getLogger(const std::string &category);
         void setGlobalLevel(LogLevel level);
 
     private:
@@ -41,7 +42,7 @@ namespace logging
         bool inited_ = false;
         LogManagerConfig cfg_{};
 
-        std::unique_ptr<AsyncBackend> backend_;
-        std::unordered_map<std::string, std::unique_ptr<Logger>> loggers_;
+        std::shared_ptr<AsyncBackend> backend_;
+        std::unordered_map<std::string, std::shared_ptr<Logger>> loggers_;
     };
 }

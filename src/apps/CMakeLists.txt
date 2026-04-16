@@ -6,6 +6,7 @@ set(APP_TARGET yolo_seg_trt_app)
 
 add_executable(${APP_TARGET}
 	main.cpp
+	logger_config.cpp
 	yolo_compile.cpp
 	yolo_compile_config.cpp
 	bench_config.cpp
